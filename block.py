@@ -33,11 +33,11 @@ def feverTime():
 
     # 공 두개를 추가해주고
     for i in range(2):
-        BALLS.append(Block((200, 242, 0), Rect(300, 400, 20, 20), 10))
+        BALLS.append(Block((200, 242, 0), Rect(300, 400, 20, 20), 10))  #앞의 괄호 :  r,g,b 색상, 뒤의 괄호 : x좌표y좌표,좌우두께, 상하 두께 의미.
 
     # 공의 속도를 15로 맞춘다.
     for BALL in BALLS:
-        BALL.speed = 10
+        BALL.speed = 10 
 
 def tick():
     """ 프레임별 처리 """
@@ -96,7 +96,7 @@ SURFACE = pygame.display.set_mode((600, 800))
 FPSCLOCK = pygame.time.Clock()
 BLOCKS = []
 PADDLE = Block((242, 242, 0), Rect(300, 700, 100, 30))
-BALLS = [Block((242, 242, 0), Rect(300, 400, 20, 20), 10)]
+BALLS = [Block((242, 242, 0), Rect(300, 400, 20, 20), 10)]            #ball 의 경우 공의 속도 마지막에 입력
 
 isNeedToRestart = False
 isFeverTime = False
@@ -159,7 +159,7 @@ def main():
         
         # 공이 패들 밑으로 내려가면 해당 공은 삭제
         for BALL in BALLS:
-            if BALL.rect.centery > 800 and len(BLOCKS) > 0:
+            if BALL.rect.centery > 800 and len(BLOCKS) > 0:           #스크린 y좌표 최댓값 = 800
                 BALLS.remove(BALL)
 
         # 피버타임이 끝난 경우
