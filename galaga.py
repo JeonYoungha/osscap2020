@@ -46,7 +46,7 @@ oScreen.paste(tempBlk, top, left)
 draw_matrix(oScreen);print()
 
 
-#공을 발사하는 함수 정의해야 할듯
+#공을 발사하는 함수 정의해야 함
 
 while True:
     key = input('Enter a key from [ q : quit, a : move left, d : move right, \' \' : shoot] : ')
