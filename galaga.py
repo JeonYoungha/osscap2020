@@ -40,7 +40,7 @@ ArrayScreen=[
                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]      
             ]
 
-block =[
+block =[              # 장애물 생성;
     [0],
     [0],
     [0],
@@ -59,7 +59,11 @@ block =[
     [0]
     ]
 
-bim =[1,1]
+bim =[[0,0,0],
+      [0,1,1],
+      [0,0,0]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
+bimtop=top-1
+bimleft=left-2
 
 b1=block
 b2=block
@@ -72,12 +76,9 @@ b3Blk=Matrix(b3)
 
 iScreen = Matrix(ArrayScreen)
 oScreen = Matrix(iScreen)
-flightBlk=Matrix(flight)
-tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-tempBlk = tempBlk + flightBlk
-oScreen.paste(tempBlk, top, left)
 
-b1top,b2top,b3top=0,0,0
+ 
+b1top,b2top,b3top=0,0,0               #장애물들 좌표
 b1left,b2left,b3left=1,3,5
 tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
 tempBlk = tempBlk + b1Blk
@@ -89,10 +90,21 @@ tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx(
 tempBlk = tempBlk + b3Blk
 iScreen.paste(tempBlk, b3top, b3left)
 oScreen=Matrix(iScreen)
+
+
+flightBlk=Matrix(flight)
+tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+tempBlk = tempBlk + flightBlk
+oScreen.paste(tempBlk, top, left)
 draw_matrix(oScreen);print()
 
 def shoot():
-    pass
+    bimBlk = Matrix(bim)                      #bim의 x,y좌표값이 필요 // x값을 -1씩 변화시켜야함
+    tempBlk=iScreen.clip(top,left-3,top+3,left)             #left 값은 불변;
+    tempBlk+=tempBlk + bimBlk
+    oScreen.paste(tempBlk, top,left-3)
+    draw_matrix(oScreen);print()
+    
 #공을 발사하는 함수 정의해야 할듯
 
 while True:
@@ -106,18 +118,9 @@ while True:
         top-=1
     elif key == ' ': # shoot
         shoot()    #not implemented; flight의 (1,0)좌표에서(top+1, left)부터 왼쪽으로 쭉 이동하게끔 time.sleep 사용하면 될 듯
+        continue
         # 공 발사 함수 사전에 정의하고 쓰면 될 듯 
-    """
-    tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b2left+b2Blk.get_dx())
-    tempBlk = tempBlk + b1Blk
-    oScreen.paste(b1Blk, b1top, b1left)
-    tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
-    tempBlk = tempBlk + b2Blk
-    oScreen.paste(b2Blk, b2top, b2left)
-    tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
-    tempBlk = tempBlk + b3Blk
-    oScreen.paste(b3Blk, b3top, b3left)
-    """
+    
 
     
     if tempBlk.anyGreaterThan(1):
