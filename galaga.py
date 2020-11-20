@@ -1,8 +1,5 @@
 from matrix import *
 import time
-import pygame
-
-pygame.init()
 
 def draw_matrix(m):
     array = m.get_array()
