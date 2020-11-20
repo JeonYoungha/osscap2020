@@ -1,5 +1,9 @@
 from matrix import *
-import time 
+import time
+import pygame
+
+pygame.init()
+
 def draw_matrix(m):
     array = m.get_array()
     for y in range(m.get_dy()):
@@ -57,6 +61,9 @@ block =[
     [0],
     [0]
     ]
+
+bim =[1,1]
+
 b1=block
 b2=block
 b3=block
@@ -77,13 +84,14 @@ b1top,b2top,b3top=0,0,0
 b1left,b2left,b3left=1,3,5
 tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
 tempBlk = tempBlk + b1Blk
-oScreen.paste(tempBlk, b1top, b1left)
+iScreen.paste(tempBlk, b1top, b1left)
 tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
 tempBlk = tempBlk + b2Blk
-oScreen.paste(tempBlk, b2top, b2left)
+iScreen.paste(tempBlk, b2top, b2left)
 tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
 tempBlk = tempBlk + b3Blk
-oScreen.paste(tempBlk, b3top, b3left)
+iScreen.paste(tempBlk, b3top, b3left)
+oScreen=Matrix(iScreen)
 draw_matrix(oScreen);print()
 
 def shoot():
@@ -105,21 +113,29 @@ while True:
     """
     tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b2left+b2Blk.get_dx())
     tempBlk = tempBlk + b1Blk
+    oScreen.paste(b1Blk, b1top, b1left)
     tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
     tempBlk = tempBlk + b2Blk
+    oScreen.paste(b2Blk, b2top, b2left)
     tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
     tempBlk = tempBlk + b3Blk
+    oScreen.paste(b3Blk, b3top, b3left)
     """
+
     
     if tempBlk.anyGreaterThan(1):
         if key == 'a': # undo: move right
             top-= 1
         elif key == 'd': # undo: move left
             top+=1
-        
+           #공 발사후에 충돌후 코드 작성 부분 ?
+
         tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
         tempBlk = tempBlk + flightBlk
-    oScreen = Matrix(iScreen)
+    oScreen=Matrix(iScreen)
     oScreen.paste(tempBlk, top, left)
+    
+    
+    
     draw_matrix(oScreen); print()
 
