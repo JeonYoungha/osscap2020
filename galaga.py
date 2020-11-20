@@ -62,8 +62,7 @@ block =[              # 장애물 생성;
 bim =[[0,0,0],
       [0,1,1],
       [0,0,0]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
-bimtop=top
-bimleft=left-3
+
 
 b1=block
 b2=block
@@ -97,9 +96,10 @@ tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx(
 tempBlk = tempBlk + flightBlk
 oScreen.paste(tempBlk, top, left)
 draw_matrix(oScreen);print()
-
+bimBlk = Matrix(bim)
+"""
 def shoot():
-    bimBlk = Matrix(bim)                      #bim의 x,y좌표값이 필요 // x값을 -1씩 변화시켜야함
+    bimBlk = Matrix(bim)       #bim의 x,y좌표값이 필요 // x값을 -1씩 변화시켜야함
     global bimtop, bimleft
 #아래 코드는 for 루프를 돌아야함 bimleft를 변화시키면서
     while bimleft!=5:
@@ -111,7 +111,7 @@ def shoot():
     #수정해야 하는 상황 : 변경된 top,left값을 받아오지 못함;
     # ++ iScreen을 업데이트해서 지나온 빔은 삭제하고 업데이트 해야함
 #공을 발사하는 함수 정의해야 할듯
-
+"""
 while True:
     key = input('Enter a key from [ q : quit, a : move left, d : move right, \' \' : shoot] : ')
     if key == 'q':   # exit; 
@@ -121,9 +121,21 @@ while True:
         top+=1
     elif key == 'd': # move right
         top-=1
-    elif key == ' ': # shoot
-        shoot()    #not implemented; flight의 (1,0)좌표에서(top+1, left)부터 왼쪽으로 쭉 이동하게끔 time.sleep 사용하면 될 듯
-        continue
+    if key == ' ': # shoot
+        bimtop=top
+        bimleft=left-3
+        while bimleft!=5:
+            time.sleep(1)
+            tempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
+            tempBlk+=tempBlk + bimBlk
+            oScreen=Matrix(iScreen)
+            oScreen.paste(tempBlk, bimtop,bimleft)
+            tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+            tempBlk = tempBlk + flightBlk
+            oScreen.paste(tempBlk, top, left)
+            draw_matrix(oScreen);print()
+            bimleft-=1
+            continue
         # 공 발사 함수 사전에 정의하고 쓰면 될 듯 
     
 
