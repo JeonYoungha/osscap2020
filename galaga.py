@@ -62,8 +62,8 @@ block =[              # 장애물 생성;
 bim =[[0,0,0],
       [0,1,1],
       [0,0,0]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
-bimtop=top-1
-bimleft=left-2
+bimtop=top
+bimleft=left-3
 
 b1=block
 b2=block
@@ -100,11 +100,16 @@ draw_matrix(oScreen);print()
 
 def shoot():
     bimBlk = Matrix(bim)                      #bim의 x,y좌표값이 필요 // x값을 -1씩 변화시켜야함
-    tempBlk=iScreen.clip(top,left-3,top+3,left)             #left 값은 불변;
-    tempBlk+=tempBlk + bimBlk
-    oScreen.paste(tempBlk, top,left-3)
-    draw_matrix(oScreen);print()
-    
+    global bimtop, bimleft
+#아래 코드는 for 루프를 돌아야함 bimleft를 변화시키면서
+    while bimleft!=5:
+        tempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
+        tempBlk+=tempBlk + bimBlk
+        oScreen.paste(tempBlk, bimtop,bimleft)
+        draw_matrix(oScreen);print()
+        bimleft-=1
+    #수정해야 하는 상황 : 변경된 top,left값을 받아오지 못함;
+    # ++ iScreen을 업데이트해서 지나온 빔은 삭제하고 업데이트 해야함
 #공을 발사하는 함수 정의해야 할듯
 
 while True:
