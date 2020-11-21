@@ -27,15 +27,23 @@ def draw_matrix(m):
         print()
 
 #충돌여부 파악하는 함수 구현
+a_y=0
+a_x=0
 def crash(m):
+    global a_y
+    global a_x
     array=m.get_array()
     for y in range(m.get_dy()):
         for x in range(m.get_dx()):
             if array[y][x] == 4:
-                array[y][x] =1
+                array[y][x]=1
+                a_y=y
+                a_x=x
                 return True
             elif array[y][x] == 5:
                 array[y][x]=0
+                a_y=y
+                a_x=x
                 return True
     return False
 
@@ -88,8 +96,12 @@ flttempBlk = flttempBlk + flightBlk
 oScreen.paste(flttempBlk, flttop, fltleft)
 
 # 현재 화면 출력
-draw_matrix(oScreen);
-print()
+draw_matrix(oScreen);print()
+
+"""
+#tempScreen정의
+tempScreen=Matrix(oScreen)
+"""
 
 # 게임 main 진행부;
 while True:  # 무한루프 진행
@@ -131,12 +143,15 @@ while True:  # 무한루프 진행
             guntempBlk = guntempBlk + gunBlk
             oScreen.paste(guntempBlk, guntop, gunleft)
             gunleft-=1
-            if crash(oScreen) == True :
+
+            if crash(oScreen) :
                 draw_matrix(oScreen)
                 break
             else :
                 draw_matrix(oScreen)
 
+    ArrayScreen[a_y][a_x] = 0
+    
     # flttop값을 임의로 변경하는 코드 (time.sleep 통해서 구현해야함)
     if flttop == 1:  # 정해진 범위 안에서 flight 객체 이동하기 위한 코드
         flttop += 1
@@ -157,10 +172,3 @@ while True:  # 무한루프 진행
     t = 3
     time.sleep(t)
     draw_matrix(oScreen);print()
-
-
-
-
-
-
-
