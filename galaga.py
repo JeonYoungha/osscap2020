@@ -5,10 +5,11 @@ def draw_matrix(m):
     array = m.get_array()
     for y in range(m.get_dy()):
         for x in range(m.get_dx()):
-            if array[y][x] == 0:
+            if array[y][x] == 0 or array[y][x] ==5:
                 print("□", end='')
             elif array[y][x] == 1:
                 print("■", end='')
+            
             else:
                 
                 print("XX", end='')
@@ -25,70 +26,28 @@ ArrayScreen=[
                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],       #0
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],   
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #2
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #4
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #4
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #6
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #6
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #8
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #10
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #10
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #12
-               [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #12
+               [1,2,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #14
                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]      
             ]
+#arrayscreen에 깨야 하는 블록까지 구현했음
+#추후 난이도 조절이나 맵등을 고려해서 arrayscreen을 여러개 만들고 선택하는 방향
 
-block =[              # 장애물 생성;
-    [0],
-    [0],
-    [0],
-    [2],
-    [2],
-    [0],
-    [2],
-    [2],
-    [0],
-    [2],
-    [2],
-    [0],
-    [2],
-    [2],
-    [0],
-    [0]
-    ]
-
-bim =[[0,0,0],
-      [0,0,3],
-      [0,0,0]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
-
-
-b1=block
-b2=block
-b3=block
-
-b1Blk=Matrix(b1)
-b2Blk=Matrix(b2)
-b3Blk=Matrix(b3)
+bim =[[3]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
 
 
 iScreen = Matrix(ArrayScreen)
 oScreen = Matrix(iScreen)
-
- 
-b1top,b2top,b3top=0,0,0               #장애물들 좌표
-b1left,b2left,b3left=1,3,5
-b1tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
-b1tempBlk = b1tempBlk + b1Blk
-iScreen.paste(b1tempBlk, b1top, b1left)
-b2tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
-b2tempBlk = b2tempBlk + b2Blk
-iScreen.paste(b2tempBlk, b2top, b2left)
-b3tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
-b3tempBlk = b3tempBlk + b3Blk
-iScreen.paste(b3tempBlk, b3top, b3left)
-oScreen=Matrix(iScreen)
 
 
 flightBlk=Matrix(flight)
@@ -112,11 +71,13 @@ def shoot():
     # ++ iScreen을 업데이트해서 지나온 빔은 삭제하고 업데이트 해야함
 #공을 발사하는 함수 정의해야 할듯
 """
-
+#iScreen이 의미하는 것 = block+ 배경
+# while 루프 돌면서 array[y][x]==4 or 5일때 ArrayScreen 수정
+# 
 
 while True:
-    bimtop=top
-    bimleft=left-3
+    bimtop=top+1
+    bimleft=left-1
     key = input('Enter a key from [ q : quit, a : move left, d : move right, \' \' : shoot] : ')
     if key == 'q':   # exit; 
         print('Game terminated...')
@@ -128,18 +89,19 @@ while True:
     if key == ' ': # shoot
         
         while bimleft!=5:             # while 무한루프를 돌고 배열의 값이 3보다 크거나 같으면
-                                    # 빔 없애고 장애물 없애는 등 제어
+                             # 빔 없애고 장애물 없애는 등 제어
+
             time.sleep(0.2)
-            bimtempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
+            bimtempBlk=iScreen.clip(bimtop,bimleft,bimtop+1,bimleft+1)             #left 값은 불변;
             bimtempBlk+=bimtempBlk + bimBlk
             oScreen=Matrix(iScreen)
             oScreen.paste(bimtempBlk, bimtop,bimleft)
-            flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-            flttempBlk = flttempBlk + flightBlk
-            oScreen.paste(flttempBlk, top, left)
+            tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+            tempBlk = tempBlk + flightBlk
+            oScreen.paste(tempBlk, top, left)
             draw_matrix(oScreen);print()
-            bimleft-=1
-            continue
+            bimleft-=1            
+            
         continue   #continue 대신 충돌에 대한 코드 작성
 
     
@@ -149,12 +111,11 @@ while True:
     
 
 
-    flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-    flttempBlk = flttempBlk + flightBlk
+    tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+    tempBlk = tempBlk + flightBlk
     oScreen=Matrix(iScreen)
-    oScreen.paste(flttempBlk, top, left)
+    oScreen.paste(tempBlk, top, left)
     
     
     
     draw_matrix(oScreen); print()
-
