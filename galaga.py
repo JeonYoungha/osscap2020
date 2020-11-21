@@ -26,6 +26,19 @@ def draw_matrix(m):
 
         print()
 
+#충돌여부 파악하는 함수 구현
+def crash(m):
+    array=m.get_array()
+    for y in range(m.get_dy()):
+        for x in range(m.get_dx()):
+            if array[y][x] == 4:
+                array[y][x] =1
+                return True
+            elif array[y][x] == 5:
+                array[y][x]=0
+                return True
+    return False
+
 
 # 스크린 크기와 비행체의 (top,left)좌표 정의
 iScreenDy = 16
@@ -108,7 +121,19 @@ while True:  # 무한루프 진행
 
     # shoot 진행
     if shoot == True:
-        continue
+        guntop=flttop+1
+        gunleft=fltleft-1
+        while True:
+            time.sleep(0.5)
+            guntempBlk = iScreen.clip(guntop, gunleft, guntop +gunBlk.get_dy(), gunleft + gunBlk.get_dx())
+            guntempBlk = guntempBlk + gunBlk
+            oScreen.paste(guntempBlk, guntop, gunleft)
+            gunleft-=1
+            if crash(oScreen) == True :
+                draw_matrix(oScreen)
+                break
+            else :
+                draw_matrix(oScreen)
 
     # flttop값을 임의로 변경하는 코드 (time.sleep 통해서 구현해야함)
     if flttop == 1:  # 정해진 범위 안에서 flight 객체 이동하기 위한 코드
@@ -127,7 +152,7 @@ while True:  # 무한루프 진행
     oScreen.paste(flttempBlk, flttop, fltleft)
 
     # time.sleep을 통해서 시간 간격 추가, drawmatrix로 출력
-    t = 0.5
+    t = 3
     time.sleep(t)
     draw_matrix(oScreen);print()
 
