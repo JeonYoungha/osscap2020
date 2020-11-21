@@ -130,10 +130,10 @@ while True:
         while bimleft!=5:             # while 무한루프를 돌고 배열의 값이 3보다 크거나 같으면
                                     # 빔 없애고 장애물 없애는 등 제어
             time.sleep(0.2)
-            tempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
-            tempBlk+=tempBlk + bimBlk
+            bimtempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
+            bimtempBlk+=bimtempBlk + bimBlk
             oScreen=Matrix(iScreen)
-            oScreen.paste(tempBlk, bimtop,bimleft)
+            oScreen.paste(bimtempBlk, bimtop,bimleft)
             tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
             tempBlk = tempBlk + flightBlk
             oScreen.paste(tempBlk, top, left)
