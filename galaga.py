@@ -60,7 +60,7 @@ block =[              # 장애물 생성;
     ]
 
 bim =[[0,0,0],
-      [0,1,1],
+      [0,0,3],
       [0,0,0]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
 
 
@@ -112,7 +112,11 @@ def shoot():
     # ++ iScreen을 업데이트해서 지나온 빔은 삭제하고 업데이트 해야함
 #공을 발사하는 함수 정의해야 할듯
 """
+
+
 while True:
+    bimtop=top
+    bimleft=left-3
     key = input('Enter a key from [ q : quit, a : move left, d : move right, \' \' : shoot] : ')
     if key == 'q':   # exit; 
         print('Game terminated...')
@@ -122,10 +126,10 @@ while True:
     elif key == 'd': # move right
         top-=1
     if key == ' ': # shoot
-        bimtop=top
-        bimleft=left-3
-        while bimleft!=5:
-            time.sleep(1)
+        
+        while bimleft!=5:             # while 무한루프를 돌고 배열의 값이 3보다 크거나 같으면
+                                    # 빔 없애고 장애물 없애는 등 제어
+            time.sleep(0.2)
             tempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
             tempBlk+=tempBlk + bimBlk
             oScreen=Matrix(iScreen)
@@ -136,19 +140,17 @@ while True:
             draw_matrix(oScreen);print()
             bimleft-=1
             continue
+        continue   #continue 대신 충돌에 대한 코드 작성
+
+    
         # 공 발사 함수 사전에 정의하고 쓰면 될 듯 
     
 
     
-    if tempBlk.anyGreaterThan(1):
-        if key == 'a': # undo: move right
-            top-= 1
-        elif key == 'd': # undo: move left
-            top+=1
-           #공 발사후에 충돌후 코드 작성 부분 ?
 
-        tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-        tempBlk = tempBlk + flightBlk
+
+    tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+    tempBlk = tempBlk + flightBlk
     oScreen=Matrix(iScreen)
     oScreen.paste(tempBlk, top, left)
     
