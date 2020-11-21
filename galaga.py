@@ -138,7 +138,7 @@ while True:  # 무한루프 진행
         while True:
             oScreen=Matrix(iScreen)
             oScreen.paste(flttempBlk, flttop, fltleft)
-            time.sleep(0.5)
+            time.sleep(0.05)
             guntempBlk = iScreen.clip(guntop, gunleft, guntop +gunBlk.get_dy(), gunleft + gunBlk.get_dx())
             guntempBlk = guntempBlk + gunBlk
             oScreen.paste(guntempBlk, guntop, gunleft)
@@ -151,7 +151,7 @@ while True:  # 무한루프 진행
                 draw_matrix(oScreen)
 
     ArrayScreen[a_y][a_x] = 0
-    
+
     # flttop값을 임의로 변경하는 코드 (time.sleep 통해서 구현해야함)
     if flttop == 1:  # 정해진 범위 안에서 flight 객체 이동하기 위한 코드
         flttop += 1
@@ -169,6 +169,6 @@ while True:  # 무한루프 진행
     oScreen.paste(flttempBlk, flttop, fltleft)
 
     # time.sleep을 통해서 시간 간격 추가, drawmatrix로 출력
-    t = 3
+    t = 0.5
     time.sleep(t)
     draw_matrix(oScreen);print()
