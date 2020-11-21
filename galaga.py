@@ -81,7 +81,9 @@ while True:       #무한루프 진행
     #iScreen이 의미하는 것 = 블록 + 테두리
     iScreen = Matrix(ArrayScreen)
     oScreen = Matrix(iScreen)
-    
+
+    #shoot 변수 정의
+    shoot=False
     # key 입력을 pygame 통해서 받음
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -92,7 +94,7 @@ while True:       #무한루프 진행
             if event.key == pg.K_SPACE:
                 shoot = True
                 
-    #shoot 진행 ( 조건문 마지막 줄에 shoot = False 삽입 ) 
+    #shoot 진행 
     if shoot == True:
         continue
 
@@ -112,7 +114,11 @@ while True:       #무한루프 진행
     flttempBlk = flttempBlk + flightBlk
     oScreen.paste(flttempBlk,flttop,fltleft)
     
-    # 
+    #time.sleep을 통해서 시간 간격 추가, drawmatrix로 출력
+    t=0.2
+    time.sleep(t)
+    draw_matrix(oScreen);print()
+    
 
     
     
