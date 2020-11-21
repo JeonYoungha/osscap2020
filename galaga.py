@@ -124,6 +124,8 @@ while True:  # 무한루프 진행
         guntop=flttop+1
         gunleft=fltleft-1
         while True:
+            oScreen=Matrix(iScreen)
+            oScreen.paste(flttempBlk, flttop, fltleft)
             time.sleep(0.5)
             guntempBlk = iScreen.clip(guntop, gunleft, guntop +gunBlk.get_dy(), gunleft + gunBlk.get_dx())
             guntempBlk = guntempBlk + gunBlk
