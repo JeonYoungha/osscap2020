@@ -1,11 +1,18 @@
 from matrix import *
 import time
+import pygame as pg
+import sys
+import random
 
+#스페이스바 입력을 위한 pygame모듈 사용
+screen = pg.display.set_mode((1,1))
+
+# Matrix m의 (y,x) 값에 따른 출력부 
 def draw_matrix(m):
     array = m.get_array()
     for y in range(m.get_dy()):
         for x in range(m.get_dx()):
-            if array[y][x] == 0 or array[y][x] ==5:
+            if array[y][x] == 0 :
                 print("□", end='')
             elif array[y][x] == 1:
                 print("■", end='')
@@ -15,13 +22,19 @@ def draw_matrix(m):
                 print("XX", end='')
         print()
 
-flight =[[0,1,1],[1,1,0],[0,1,1]]
 
+
+#스크린 크기와 비행체의 (top,left)좌표 정의 
 iScreenDy=16
 iScreenDx=32
-top=7
-left = 27
+flttop=7
+fltleft = 27
 
+#iScreen이 될 기본 array (블록과 테두리 정의되어 있음)
+#이후 다양한 맵을 추가하려면 ArrayScreen을 여러개 만들고
+#iScreen=Matrix(ArrayScreen)을 선택하는 방향
+#블록은 고정되어 있고 flight 비행체의 flttop값을 자동으로 변화 (정해진 범위 내)
+#키 입력을 통해 총 발사하고 걸리는 시간을 스코어 형식으로 표현
 ArrayScreen=[
                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],       #0
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],   
@@ -40,82 +53,69 @@ ArrayScreen=[
                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],       #14
                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]      
             ]
-#arrayscreen에 깨야 하는 블록까지 구현했음
-#추후 난이도 조절이나 맵등을 고려해서 arrayscreen을 여러개 만들고 선택하는 방향
+#총(gun) 행렬 정의
+gun=[[3]]
+gunBlk = Matrix(gun)
 
-bim =[[3]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
+#비행체 모양 정의
+flight =[[0,1,1],[1,1,0],[0,1,1]]
+flightBlk=Matrix(flight)
 
-
+#스크린 정의;
+#iScreen이 의미하는 것 = 블록 + 테두리
 iScreen = Matrix(ArrayScreen)
 oScreen = Matrix(iScreen)
 
-
-flightBlk=Matrix(flight)
-flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+#비행체 oScreen에 붙여넣기
+flttempBlk = iScreen.clip(flttop, fltleft, flttop+flightBlk.get_dy(), fltleft+flightBlk.get_dx())
 flttempBlk = flttempBlk + flightBlk
-oScreen.paste(flttempBlk, top, left)
+oScreen.paste(flttempBlk,flttop,fltleft)
+
+#현재 화면 출력
 draw_matrix(oScreen);print()
-bimBlk = Matrix(bim)
-"""
-def shoot():
-    bimBlk = Matrix(bim)       #bim의 x,y좌표값이 필요 // x값을 -1씩 변화시켜야함
-    global bimtop, bimleft
-#아래 코드는 for 루프를 돌아야함 bimleft를 변화시키면서
-    while bimleft!=5:
-        tempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
-        tempBlk+=tempBlk + bimBlk
-        oScreen.paste(tempBlk, bimtop,bimleft)
-        draw_matrix(oScreen);print()
-        bimleft-=1
-    #수정해야 하는 상황 : 변경된 top,left값을 받아오지 못함;
-    # ++ iScreen을 업데이트해서 지나온 빔은 삭제하고 업데이트 해야함
-#공을 발사하는 함수 정의해야 할듯
-"""
-#iScreen이 의미하는 것 = block+ 배경
-# while 루프 돌면서 array[y][x]==4 or 5일때 ArrayScreen 수정
-# 
 
-while True:
-    bimtop=top+1
-    bimleft=left-1
-    key = input('Enter a key from [ q : quit, a : move left, d : move right, \' \' : shoot] : ')
-    if key == 'q':   # exit; 
-        print('Game terminated...')
-        break
-    elif key == 'a': # move left
-        top+=1
-    elif key == 'd': # move right
-        top-=1
-    if key == ' ': # shoot
-        
-        while bimleft!=5:             # while 무한루프를 돌고 배열의 값이 3보다 크거나 같으면
-                             # 빔 없애고 장애물 없애는 등 제어
+#게임 main 진행부;
+while True:       #무한루프 진행
+    
+    #스크린 초기화; flight객체를 삭제하고 이후 다시 다른 위치에 paste
+    #iScreen이 의미하는 것 = 블록 + 테두리
+    iScreen = Matrix(ArrayScreen)
+    oScreen = Matrix(iScreen)
+    
+    # key 입력을 pygame 통해서 받음
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            running = False
+            pg.quit()
+            sys.exit()
+        if event.type == pg.KEYDOWN:        #space bar을 누르면 shoot True로
+            if event.key == pg.K_SPACE:
+                shoot = True
+                
+    #shoot 진행 ( 조건문 마지막 줄에 shoot = False 삽입 ) 
+    if shoot == True:
+        continue
 
-            time.sleep(0.2)
-            bimtempBlk=iScreen.clip(bimtop,bimleft,bimtop+1,bimleft+1)             #left 값은 불변;
-            bimtempBlk+=bimtempBlk + bimBlk
-            oScreen=Matrix(iScreen)
-            oScreen.paste(bimtempBlk, bimtop,bimleft)
-            tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-            tempBlk = tempBlk + flightBlk
-            oScreen.paste(tempBlk, top, left)
-            draw_matrix(oScreen);print()
-            bimleft-=1            
-            
-        continue   #continue 대신 충돌에 대한 코드 작성
+    #flttop값을 임의로 변경하는 코드 (time.sleep 통해서 구현해야함)
+    if flttop == 1:   #정해진 범위 안에서 flight 객체 이동하기 위한 코드
+        flttop += 1
+    elif flttop == 12:
+        flttop -= 1
+    else :
+        rand=random.randint(0,1)  #flight 객체를 random하게 움직이게 하는 코드
+        if rand == 0:
+            flttop += 1
+        else :
+            flttop -= 1
+    #변화된 flttop값을 바탕으로 oScreen에 flight객체를 paste하는 코드 
+    flttempBlk = iScreen.clip(flttop, fltleft, flttop+flightBlk.get_dy(), fltleft+flightBlk.get_dx())
+    flttempBlk = flttempBlk + flightBlk
+    oScreen.paste(flttempBlk,flttop,fltleft)
+    
+    # 
 
     
-        # 공 발사 함수 사전에 정의하고 쓰면 될 듯 
-    
-
     
 
 
-    tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-    tempBlk = tempBlk + flightBlk
-    oScreen=Matrix(iScreen)
-    oScreen.paste(tempBlk, top, left)
-    
-    
-    
-    draw_matrix(oScreen); print()
+
