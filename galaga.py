@@ -1,20 +1,29 @@
 from matrix import *
+import time
 
 def draw_matrix(m):
     array = m.get_array()
     for y in range(m.get_dy()):
         for x in range(m.get_dx()):
-            if array[y][x] == 0:
+            if array[y][x] == 0 :
+                print("□", end='')
+            elif array[y][x] == 5:
+                array[y][x] =6
                 print("□", end='')
             elif array[y][x] == 1:
                 print("■", end='')
-            else:
+            elif array[y][x]==2:                
                 print("XX", end='')
+            elif array[y][x]==3:
+                print("◆",end='')
+            else:
+                print("◈",end='')
         print()
 
 flight =[[0,1,1],[1,1,0],[0,1,1]]
 
 iScreenDy=16
+
 iScreenDx=32
 top=7
 left = 27
@@ -38,7 +47,7 @@ ArrayScreen=[
                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]      
             ]
 
-block =[
+block =[              # 장애물 생성;
     [0],
     [0],
     [0],
@@ -56,6 +65,12 @@ block =[
     [0],
     [0]
     ]
+
+bim =[[0,0,0],
+      [0,0,3],
+      [0,0,0]]          #bim = 비행체에서 발사되는 빔, 장애물에 맞은 후 제어 코드 필요
+
+
 b1=block
 b2=block
 b3=block
@@ -67,27 +82,47 @@ b3Blk=Matrix(b3)
 
 iScreen = Matrix(ArrayScreen)
 oScreen = Matrix(iScreen)
-flightBlk=Matrix(flight)
-tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-tempBlk = tempBlk + flightBlk
-oScreen.paste(tempBlk, top, left)
 
-b1top,b2top,b3top=0,0,0
+ 
+b1top,b2top,b3top=0,0,0               #장애물들 좌표
 b1left,b2left,b3left=1,3,5
-tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
-tempBlk = tempBlk + b1Blk
-oScreen.paste(tempBlk, b1top, b1left)
-tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
-tempBlk = tempBlk + b2Blk
-oScreen.paste(tempBlk, b2top, b2left)
-tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
-tempBlk = tempBlk + b3Blk
-oScreen.paste(tempBlk, b3top, b3left)
+b1tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
+b1tempBlk = b1tempBlk + b1Blk
+iScreen.paste(b1tempBlk, b1top, b1left)
+b2tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
+b2tempBlk = b2tempBlk + b2Blk
+iScreen.paste(b2tempBlk, b2top, b2left)
+b3tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
+b3tempBlk = b3tempBlk + b3Blk
+iScreen.paste(b3tempBlk, b3top, b3left) #inputscreen에 block + 테두리 선 을 정의;
+oScreen=Matrix(iScreen)
+
+
+flightBlk=Matrix(flight)
+flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+flttempBlk = flttempBlk + flightBlk
+oScreen.paste(flttempBlk, top, left)
 draw_matrix(oScreen);print()
+bimBlk = Matrix(bim)
 
-
+"""
+def shoot():
+    bimBlk = Matrix(bim)       #bim의 x,y좌표값이 필요 // x값을 -1씩 변화시켜야함
+    global bimtop, bimleft
+#아래 코드는 for 루프를 돌아야함 bimleft를 변화시키면서
+    while bimleft!=5:
+        tempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
+        tempBlk+=tempBlk + bimBlk
+        oScreen.paste(tempBlk, bimtop,bimleft)
+        draw_matrix(oScreen);print()
+        bimleft-=1
+    #수정해야 하는 상황 : 변경된 top,left값을 받아오지 못함;
+    # ++ iScreen을 업데이트해서 지나온 빔은 삭제하고 업데이트 해야함
 #공을 발사하는 함수 정의해야 할듯
+"""
 
+
+#키보드 제어는 파이게임모듈로 
 while True:
     key = input('Enter a key from [ q : quit, a : move left, d : move right, \' \' : shoot] : ')
     if key == 'q':   # exit; 
@@ -97,20 +132,55 @@ while True:
         top+=1
     elif key == 'd': # move right
         top-=1
-    elif key == ' ': # shoot 
-        continue    #not implemented; flight의 (1,0)좌표에서부터 왼쪽으로 쭉 이동하게끔 time.sleep 사용하면 될 듯
+    if key == ' ': # shoot
+        bimtop=top
+        bimleft=left-3
+        while True:             # while 무한루프를 돌고 if문으로 배열의 값이 3보다 크거나 같으면
+                                    # 빔 없애고 장애물 없애는 등 제어 break;
+            crush=False
+            time.sleep(0.2)
+            bimtempBlk=iScreen.clip(bimtop,bimleft,bimtop+3,bimleft+3)             #left 값은 불변;
+            bimtempBlk = bimtempBlk + bimBlk #clip으로 따온 후 빔 객체 붙여넣음
+            oScreen=Matrix(iScreen)     #oscreen = flight객체 뺀 나머지 부분을 의미
+            oScreen.paste(bimtempBlk, bimtop,bimleft) #bim을 붙여넣음
+            flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+            flttempBlk = flttempBlk + flightBlk
+            oScreen.paste(flttempBlk, top, left)
+            draw_matrix(oScreen);print()
+            bimleft-=1
+        
+            array=oScreen.get_array()
+            for y in range(oScreen.get_dy()):
+                for x in range(oScreen.get_dx()):
+                    if array[y][x]==5:
+                        crush=True
+                        break
+            if crush==True:
+                break
+                    
+            
+    
+        continue 
+
+        # bimtempBlk를 if 문 밖에 paste하면 비행기 이동해도 사라지지 않음
+        # 충돌 제어 코드 사용해서 블록 삭제 (matrix 값 통해서 바꾸면 될 듯
         # 공 발사 함수 사전에 정의하고 쓰면 될 듯 
-    tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-    tempBlk = tempBlk + flightBlk
-    if tempBlk.anyGreaterThan(1):
+    
+
+    
+    if flttempBlk.anyGreaterThan(1):     #비행기객체의 matrix값 수정 
         if key == 'a': # undo: move right
             top-= 1
         elif key == 'd': # undo: move left
             top+=1
-        
-        tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-        tempBlk = tempBlk + flightBlk
-    oScreen = Matrix(iScreen)
-    oScreen.paste(tempBlk, top, left)
+           #공 발사후에 충돌후 코드 작성 부분 ?
+
+        flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+        flttempBlk = flttempBlk + flightBlk
+    oScreen=Matrix(iScreen)
+    oScreen.paste(flttempBlk, top, left)
+    
+    
+    
     draw_matrix(oScreen); print()
 
