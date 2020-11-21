@@ -79,22 +79,22 @@ oScreen = Matrix(iScreen)
  
 b1top,b2top,b3top=0,0,0               #장애물들 좌표
 b1left,b2left,b3left=1,3,5
-tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
-tempBlk = tempBlk + b1Blk
-iScreen.paste(tempBlk, b1top, b1left)
-tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
-tempBlk = tempBlk + b2Blk
-iScreen.paste(tempBlk, b2top, b2left)
-tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
-tempBlk = tempBlk + b3Blk
-iScreen.paste(tempBlk, b3top, b3left)
+b1tempBlk = iScreen.clip(b1top, b1left, b1top+b1Blk.get_dy(), b1left+b1Blk.get_dx())
+b1tempBlk = b1tempBlk + b1Blk
+iScreen.paste(b1tempBlk, b1top, b1left)
+b2tempBlk = iScreen.clip(b2top, b2left, b2top+b2Blk.get_dy(), b2left+b2Blk.get_dx())
+b2tempBlk = b2tempBlk + b2Blk
+iScreen.paste(b2tempBlk, b2top, b2left)
+b3tempBlk = iScreen.clip(b3top, b3left, b3top+b3Blk.get_dy(), b3left+b3Blk.get_dx())
+b3tempBlk = b3tempBlk + b3Blk
+iScreen.paste(b3tempBlk, b3top, b3left)
 oScreen=Matrix(iScreen)
 
 
 flightBlk=Matrix(flight)
-tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-tempBlk = tempBlk + flightBlk
-oScreen.paste(tempBlk, top, left)
+flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+flttempBlk = flttempBlk + flightBlk
+oScreen.paste(flttempBlk, top, left)
 draw_matrix(oScreen);print()
 bimBlk = Matrix(bim)
 """
@@ -134,9 +134,9 @@ while True:
             bimtempBlk+=bimtempBlk + bimBlk
             oScreen=Matrix(iScreen)
             oScreen.paste(bimtempBlk, bimtop,bimleft)
-            tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-            tempBlk = tempBlk + flightBlk
-            oScreen.paste(tempBlk, top, left)
+            flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+            flttempBlk = flttempBlk + flightBlk
+            oScreen.paste(flttempBlk, top, left)
             draw_matrix(oScreen);print()
             bimleft-=1
             continue
@@ -149,10 +149,10 @@ while True:
     
 
 
-    tempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
-    tempBlk = tempBlk + flightBlk
+    flttempBlk = iScreen.clip(top, left, top+flightBlk.get_dy(), left+flightBlk.get_dx())
+    flttempBlk = flttempBlk + flightBlk
     oScreen=Matrix(iScreen)
-    oScreen.paste(tempBlk, top, left)
+    oScreen.paste(flttempBlk, top, left)
     
     
     
