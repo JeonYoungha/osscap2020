@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@kimin-u 
-JeonYoungha
-/
-osscap2020
-1
-00
-Code
-Issues
-7
-Pull requests
-1
-Actions
-Projects
-Wiki
-Security
-Insights
-osscap2020/galaga.py /
-@kimin-u
-kimin-u Update galaga.py
-Latest commit 3d666fa 1 hour ago
- History
- 1 contributor
-474 lines (413 sloc)  19.3 KB
-  
 from matrix import *
 import time
 import pygame as pg
@@ -504,15 +472,3 @@ if gameover == True:
     time.sleep(3)
     overoScreen=Matrix(overScreen)
     draw_matrix(overoScreen);print()
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
