@@ -14,17 +14,17 @@ def draw_matrix(m):
     for y in range(m.get_dy()):
         for x in range(m.get_dx()):
             if array[y][x] == 0:
-                print("□", end='')
+                print("□ ", end='')
             elif array[y][x] == 1:
-                print("■", end='')
+                print("■ ", end='')
             elif array[y][x] == 2:
-                print("◆", end='')
+                print("◆ ", end='')
             elif array[y][x] == 3:
-                print("●", end='')
+                print("● ", end='')
             elif array[y][x] == 7:
-                print("▶", end='')
+                print("▶ ", end='')
             else:
-                print("◆", end='')
+                print("◆ ", end='')
 
         print()
 
@@ -294,7 +294,7 @@ obstacleleft = 6  # 장애물의 생성 left좌표는 항상 고정 (상수)
 #randomnumber을 담는 리스트 정의 (list의 배열값이 1과 14사이일때만 장애물 생성해서 출력
 lst=[]
 for i in range(1000):
-    lst.append(random.randint(1,45))
+    lst.append(random.randint(1,14))
 i=0
 
 
