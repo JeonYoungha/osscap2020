@@ -353,18 +353,28 @@ if printtimescore == True:
     timeoftenleft=4
     timeofoneleft=18
 
-    #timeiScreen에서 clip 따와서 붙혀넣기
-    timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + timeoftenBlk.get_dy(), timeoftenleft + timeoftenBlk.get_dx())
-    timeoftentempBlk = timeoftentempBlk + timeoftenBlk
-    timeoScreen.paste(timeoftentempBlk, timeoftentop, timeoftenleft)
+    #출력화면 깜박이게 하기 (반복문 통해서 빈화면과 출력화면 번갈아서 draw_matrix하기)
+    for i in range(2):
 
-    timeofonetempBlk = timeiScreen.clip(timeofonetop, timeofoneleft, timeofonetop + timeofoneBlk.get_dy(), timeofoneleft + timeofoneBlk.get_dx())
-    timeofonetempBlk = timeofonetempBlk + timeofoneBlk
-    timeoScreen.paste(timeofonetempBlk, timeofonetop, timeofoneleft)
+        #빈화면으로 초기화
+        timeiScreen = Matrix(timeScreen)
+        timeoScreen = Matrix(timeiScreen)
+        draw_matrix(timeoScreen);print()
+        time.sleep(0.3)
 
-    #timeoScreen출력부
-    draw_matrix(timeoScreen)
+        #timeiScreen에서 clip 따와서 붙혀넣기
+        timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + timeoftenBlk.get_dy(), timeoftenleft + timeoftenBlk.get_dx())
+        timeoftentempBlk = timeoftentempBlk + timeoftenBlk
+        timeoScreen.paste(timeoftentempBlk, timeoftentop, timeoftenleft)
 
+        timeofonetempBlk = timeiScreen.clip(timeofonetop, timeofoneleft, timeofonetop + timeofoneBlk.get_dy(), timeofoneleft + timeofoneBlk.get_dx())
+        timeofonetempBlk = timeofonetempBlk + timeofoneBlk
+        timeoScreen.paste(timeofonetempBlk, timeofonetop, timeofoneleft)
+
+        #timeoScreen출력부
+        draw_matrix(timeoScreen);print()
+
+        time.sleep(0.3)
 
 
 
