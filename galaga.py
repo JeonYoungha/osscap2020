@@ -149,8 +149,8 @@ while True:  # 무한루프 진행
                 break
             else :
                 draw_matrix(oScreen)
-
-    ArrayScreen[a_y][a_x] = 0
+    if ArrayScreen[a_y][a_x]==2:
+        ArrayScreen[a_y][a_x] = 0
 
     # flttop값을 임의로 변경하는 코드 (time.sleep 통해서 구현해야함)
     if flttop == 1:  # 정해진 범위 안에서 flight 객체 이동하기 위한 코드
@@ -172,3 +172,5 @@ while True:  # 무한루프 진행
     t = 0.5
     time.sleep(t)
     draw_matrix(oScreen);print()
+
+    #ArrayScreen전체에서 2가 없으면 게임 종료 ( 시간에 따른 스코어 출력)
