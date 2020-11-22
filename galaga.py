@@ -308,7 +308,6 @@ while True:  # 무한루프 진행
 
     #장애물에 맞았을 때 gameover을 출력하기 위한 bool타입 변수
     gameover=False
-
     # 스크린 초기화; flight객체를 삭제하고 이후 다시 다른 위치에 paste
     # iScreen이 의미하는 것 = 블록 + 테두리
     iScreen = Matrix(ArrayScreen)
@@ -341,6 +340,26 @@ while True:  # 무한루프 진행
     if finish == True:
         break
 
+    # lst에 저장된 randomnumber 바탕으로 obstacle 생성하기
+    if 1 <= lst[i] <= 14:
+        oScreen = Matrix(iScreen)
+        obstacletop = lst[i]
+        obstacletempBlk = iScreen.clip(obstacletop, obstacleleft, obstacletop + 1, obstacleleft + 1)
+        obstacletempBlk = obstacletempBlk + obstacleBlk
+        oScreen.paste(obstacletempBlk, obstacletop, obstacleleft)
+
+        # 예상 충돌 좌표에서의 충돌 여부 파악
+    if obstacleleft == 27:
+        if flttop <= obstacletop <= flttop + 2:
+            gameover = True
+            break
+
+    obstacleleft += 1
+
+    if obstacleleft == 31:
+        i += 1
+        obstacleleft = 6
+
     # shoot 진행
     if shoot == True:
         guntop = flttop + 1
@@ -348,11 +367,23 @@ while True:  # 무한루프 진행
         while True:
             oScreen = Matrix(iScreen)
             oScreen.paste(flttempBlk, flttop, fltleft)
+            oScreen.paste(obstacletempBlk, obstacletop, obstacleleft)
             time.sleep(0.05)
             guntempBlk = iScreen.clip(guntop, gunleft, guntop + gunBlk.get_dy(), gunleft + gunBlk.get_dx())
             guntempBlk = guntempBlk + gunBlk
             oScreen.paste(guntempBlk, guntop, gunleft)
             gunleft -= 1
+
+            if obstacleleft == 27:
+                if flttop <= obstacletop <= flttop + 2:
+                    gameover = True
+                    break
+
+            obstacleleft += 1
+
+            if obstacleleft == 31:
+                i += 1
+                obstacleleft = 6
 
             if crash(oScreen):
                 draw_matrix(oScreen)
@@ -362,25 +393,7 @@ while True:  # 무한루프 진행
     if ArrayScreen[a_y][a_x] == 2:
         ArrayScreen[a_y][a_x] = 0
 
-    #lst에 저장된 randomnumber 바탕으로 obstacle 생성하기
-    if 1<=lst[i]<=14:
-        oScreen = Matrix(iScreen)
-        obstacletop = lst[i]
-        obstacletempBlk = iScreen.clip(obstacletop, obstacleleft, obstacletop + 1, obstacleleft + 1)
-        obstacletempBlk = obstacletempBlk + obstacleBlk
-        oScreen.paste(obstacletempBlk, obstacletop, obstacleleft)
 
-    #예상 충돌 좌표에서의 충돌 여부 파악
-    if obstacleleft==27:
-        if flttop<=obstacletop<=flttop+2:
-            gameover=True
-            break
-
-    obstacleleft+=1
-
-    if obstacleleft == 31:
-        i+=1
-        obstacleleft=6
 
     # 바뀐 flttop을 바탕으로 oscreen에 붙여넣기
     flttempBlk = iScreen.clip(flttop, fltleft, flttop + flightBlk.get_dy(), fltleft + flightBlk.get_dx())
@@ -388,7 +401,7 @@ while True:  # 무한루프 진행
     oScreen.paste(flttempBlk, flttop, fltleft)
 
     # time.sleep을 통해서 시간 간격 추가, drawmatrix로 출력
-    t = 0.5
+    t = 0.2
     time.sleep(t)
     draw_matrix(oScreen);
     print()
@@ -417,7 +430,7 @@ if printtimescore == True:
 
     # printtimescore == True 이면 새로운 스크린을 따와서 숫자를 붙혀 출력
     timeiScreen = Matrix(emptyScreen)
-    timeoScreen = Matrix(emptyiScreen)
+    timeoScreen = Matrix(timeiScreen)
 
     # timeSpent에 저장된 숫자를 10의 자릿수와 1의 자릿수로 나누는 코드
     timeoften = timeSpent // 10
@@ -441,7 +454,7 @@ if printtimescore == True:
 
         # 빈화면으로 초기화
         timeiScreen = Matrix(emptyScreen)
-        timeoScreen = Matrix(emptyiScreen)
+        timeoScreen = Matrix(timeiScreen)
         draw_matrix(timeoScreen);
         print()
         time.sleep(0.3)
@@ -469,6 +482,6 @@ if printtimescore == True:
 if gameover == True:
     gameoScreen=Matrix(gameScreen)
     draw_matrix(gameoScreen);print()
-    time.sleep(3)
+    time.sleep(1)
     overoScreen=Matrix(overScreen)
     draw_matrix(overoScreen);print()
