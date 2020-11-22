@@ -256,8 +256,9 @@ obstacleleft = 6  # 장애물의 생성 left좌표는 항상 고정 (상수)
 #randomnumber을 담는 리스트 정의 (list의 배열값이 1과 14사이일때만 장애물 생성해서 출력
 lst=[]
 for i in range(1000):
-    lst.append(random.randint(0,14))
+    lst.append(random.randint(1,14))
 i=0
+print(lst)
 
 # 코드 실행 시간 출력용 변수 선언
 start = int(time.time())
@@ -327,8 +328,19 @@ while True:  # 무한루프 진행
         obstacletempBlk = iScreen.clip(obstacletop, obstacleleft, obstacletop + 1, obstacleleft + 1)
         obstacletempBlk = obstacletempBlk + obstacleBlk
         oScreen.paste(obstacletempBlk, obstacletop, obstacleleft)
+
+    #예상 충돌 좌표에서의 충돌 여부 파악
+    if obstacleleft==27:
+        if flttop<=obstacletop<=flttop+2:
+            print("gameover")
+            break
+
     obstacleleft+=1
-    
+
+    if obstacleleft == 31:
+        i+=1
+        obstacleleft=6
+
     # 바뀐 flttop을 바탕으로 oscreen에 붙여넣기
     flttempBlk = iScreen.clip(flttop, fltleft, flttop + flightBlk.get_dy(), fltleft + flightBlk.get_dx())
     flttempBlk = flttempBlk + flightBlk
