@@ -210,14 +210,15 @@ def timescore (t):
         timeBlk = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 1, 1, 1, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 1, 0, 0],
-            [0, 0, 1, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 1, 1, 1, 1, 0, 0],
+            [0, 1, 0, 0, 0, 0, 1, 0, 0],
+            [0, 1, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0]]
     return timeBlk
+
 # 총(gun) 행렬 정의
 gun = [[3]]
 gunBlk = Matrix(gun)
@@ -268,6 +269,12 @@ while True:  # 무한루프 진행
             if event.key == pg.K_BACKSPACE:
                 printtimescore = True
                 finish = True
+            if event.key == pg.K_LEFT:
+                if flttop != 12:
+                    flttop += 1
+            elif event.key == pg.K_RIGHT:
+                if flttop != 1:
+                    flttop -=1
 
     #finish == true 일 때 무한 루프 종료
     if finish == True:
@@ -293,19 +300,8 @@ while True:  # 무한루프 진행
                 draw_matrix(oScreen)
     if ArrayScreen[a_y][a_x]==2:
         ArrayScreen[a_y][a_x] = 0
-
-    # flttop값을 임의로 변경하는 코드 (time.sleep 통해서 구현해야함)
-    if flttop == 1:  # 정해진 범위 안에서 flight 객체 이동하기 위한 코드
-        flttop += 1
-    elif flttop == 12:
-        flttop -= 1
-    else:
-        rand = random.randint(0, 1)  # flight 객체를 random하게 움직이게 하는 코드
-        if rand == 0:
-            flttop += 1
-        else:
-            flttop -= 1
-    # 변화된 flttop값을 바탕으로 oScreen에 flight객체를 paste하는 코드
+    
+    #바뀐 flttop을 바탕으로 oscreen에 붙여넣기
     flttempBlk = iScreen.clip(flttop, fltleft, flttop + flightBlk.get_dy(), fltleft + flightBlk.get_dx())
     flttempBlk = flttempBlk + flightBlk
     oScreen.paste(flttempBlk, flttop, fltleft)
@@ -382,7 +378,3 @@ if printtimescore == True:
         draw_matrix(timeoScreen);print()
 
         time.sleep(0.3)
-
-
-
-
