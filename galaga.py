@@ -223,6 +223,12 @@ def timescore (t):
 gun = [[3]]
 gunBlk = Matrix(gun)
 
+#장애물 행렬 정의
+obstacle = [[5]]
+obstacleBlk =Matrix(obstacle)
+obstacletop=1            #장애물의 top좌표는 랜덤으로 변함
+obstacleleft=6           #장애물의 left좌표는 항상 고정 (상수)
+
 # 비행체 모양 정의
 flight = [[0, 1, 1], [1, 1, 0], [0, 1, 1]]
 flightBlk = Matrix(flight)
