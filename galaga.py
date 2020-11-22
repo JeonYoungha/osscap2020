@@ -353,6 +353,11 @@ if printtimescore == True:
     timeoftenleft=4
     timeofoneleft=18
 
+    #걸린시간이 한자리 수이면 숫자 하나를 가운데에 출력할 수 있게 index값 조정
+    if timeoften==0:
+        timeofonetop=3
+        timeofoneleft=11
+
     #출력화면 깜박이게 하기 (반복문 통해서 빈화면과 출력화면 번갈아서 draw_matrix하기)
     for i in range(2):
 
@@ -363,9 +368,11 @@ if printtimescore == True:
         time.sleep(0.3)
 
         #timeiScreen에서 clip 따와서 붙혀넣기
-        timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + timeoftenBlk.get_dy(), timeoftenleft + timeoftenBlk.get_dx())
-        timeoftentempBlk = timeoftentempBlk + timeoftenBlk
-        timeoScreen.paste(timeoftentempBlk, timeoftentop, timeoftenleft)
+        #timeoften != 0일때 실행
+        if timeoften !=0:
+            timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + timeoftenBlk.get_dy(), timeoftenleft + timeoftenBlk.get_dx())
+            timeoftentempBlk = timeoftentempBlk + timeoftenBlk
+            timeoScreen.paste(timeoftentempBlk, timeoftentop, timeoftenleft)
 
         timeofonetempBlk = timeiScreen.clip(timeofonetop, timeofoneleft, timeofonetop + timeofoneBlk.get_dy(), timeofoneleft + timeofoneBlk.get_dx())
         timeofonetempBlk = timeofonetempBlk + timeofoneBlk
