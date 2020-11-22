@@ -364,7 +364,7 @@ while True:  # 무한루프 진행
     if shoot == True:
         guntop = flttop + 1
         gunleft = fltleft - 1
-        
+
         obstacleSpeed = 0
         while True:
             oScreen = Matrix(iScreen)
@@ -381,7 +381,7 @@ while True:  # 무한루프 진행
                     gameover = True
                     break
 
-            #obstacle 블록객체가 너무 빠르게 움직이는 것을 방지 
+            #obstacle 블록객체가 너무 빠르게 움직이는 것을 방지
             #현재 whileloop의 timesleep값이 바깥의 값보다 4배 크기때문에 루프를 4번 돌때마다 1칸 움직이게 설정했음
             if obstacleSpeed==0:
                 obstacleleft += 1
@@ -475,6 +475,7 @@ if printtimescore == True:
         # timeoften != 0일때 실행
         if timeoften != 0:
             timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + timeoftenBlk.get_dy(),
+
                                                 timeoftenleft + timeoftenBlk.get_dx())
             timeoftentempBlk = timeoftentempBlk + timeoftenBlk
             timeoScreen.paste(timeoftentempBlk, timeoftentop, timeoftenleft)
