@@ -464,6 +464,7 @@ end = int(time.time())
 
 # 코드 실행 시간 변수에 저장 (무한 루프 빠져나올 때까지 걸린 시간) (자료형 : int)
 timeSpent = end - start
+timeSpent = 100 -timeSpent
 
 # printtimescore이 true 일 때 걸린 시간 출력하는 코드
 if printtimescore == True:
