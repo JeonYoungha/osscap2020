@@ -19,14 +19,16 @@ def draw_matrix(m):
         for x in range(m.get_dx()):
             if array[y][x] == 0:
                 LMD.set_pixel(x,y,0)
-            elif array[y][x] == 1:
-                LMD.set_pixel(x,y,1)
-            elif array[y][x] == 2:
+            elif array[y][x] == 1:             #wall
+                LMD.set_pixel(x,y,7)
+            elif array[y][x] == 2:          #block
                 LMD.set_pixel(x,y,2)
-            elif array[y][x] == 3:
+            elif array[y][x] == 3:             #gun
                 LMD.set_pixel(x,y,3)
-            elif array[y][x] == 7:
+            elif array[y][x] == 6:            #flight
                 LMD.set_pixel(x,y,4)
+            elif array[y][x] == 7:             #obstacle
+                LMD.set_pixel(x,y,1)
             else:
                 LMD.set_pixel(x,y,5)
 
@@ -309,7 +311,7 @@ gun = [[3]]
 gunBlk = Matrix(gun)
 
 # 비행체 모양 정의
-flight = [[0, 1, 1], [1, 1, 0], [0, 1, 1]]
+flight = [[0, 6, 6], [6, 6, 0], [0, 6, 6]]
 flightBlk = Matrix(flight)
 
 # 스크린 정의;
