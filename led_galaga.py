@@ -538,3 +538,4 @@ if gameover == True:
     time.sleep(1)
     overoScreen=Matrix(overScreen)
     draw_matrix(overoScreen);print()
+    time.sleep(2)
