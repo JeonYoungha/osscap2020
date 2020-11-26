@@ -3,7 +3,7 @@ import time
 import pygame as pg
 import sys
 import random
-import LED display as LMD
+import LED_display as LMD
 import threading
 
 def LED_init():
@@ -300,14 +300,9 @@ def timescore(t):
     return timeBlk
 
 #LED 패널 출력을 위한 thread 시작
-iScreen = Matrix(arrayScreen)
-oScreen = Matrix(iScreen)
-currBlk = Matrix(arrayBlk)
-tempBlk = iScreen.clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx())
-tempBlk = tempBlk + currBlk
-oScreen.paste(tempBlk, top, left)
+
 LED_init()
-draw_matrix(oScreen); print()
+
 
 # 총(gun) 행렬 정의
 gun = [[3]]
