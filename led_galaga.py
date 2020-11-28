@@ -400,6 +400,13 @@ while True:  # 무한루프 진행
     # 예상 충돌 좌표에서의 충돌 여부 파악
     if obstacleleft == 27:
         if flttop <= obstacletop <= flttop + 2:
+            flight = [[0, 1, 1], [1, 1, 0], [0, 1, 1]]
+            flightBlk = Matrix(flight)
+            flttempBlk = iScreen.clip(flttop, fltleft, flttop + flightBlk.get_dy(), fltleft + flightBlk.get_dx())
+            flttempBlk = flttempBlk + flightBlk
+            oScreen.paste(flttempBlk, flttop, fltleft)
+            draw_matrix(oScreen);print()
+            time.sleep(0.3)
             gameover = True
             break
 
