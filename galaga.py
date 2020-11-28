@@ -19,6 +19,8 @@ def draw_matrix(m):
                 print("● ", end='')
             elif array[y][x] == 7:
                 print("▶ ", end='')
+            elif array[y][x] == 8:
+                print("★ ", end='')
             else:
                 print("◆ ", end='')
 
@@ -35,12 +37,10 @@ def crash(m):
     for y in range(m.get_dy()):
         for x in range(m.get_dx()):
             if array[y][x] == 4:
-                array[y][x] = 1
                 a_y = y
                 a_x = x
                 return True
             elif array[y][x] == 5:
-                array[y][x] = 0
                 a_y = y
                 a_x = x
                 return True
@@ -368,6 +368,8 @@ while True:  # 무한루프 진행
     # finish == true 일 때 무한 루프 종료
     if finish == True:
         break
+    if ArrayScreen[a_y][a_x]>=8:
+        ArrayScreen[a_y][a_x]=0
 
     # lst에 저장된 randomnumber 바탕으로 obstacle 생성하기
     if 1 <= lst[i] <= 14:
@@ -433,7 +435,7 @@ while True:  # 무한루프 진행
                 draw_matrix(oScreen)
 
     if ArrayScreen[a_y][a_x] == 2:
-        ArrayScreen[a_y][a_x] = 0
+        ArrayScreen[a_y][a_x] = 8
 
     # 바뀐 flttop을 바탕으로 oscreen에 붙여넣기
     flttempBlk = iScreen.clip(flttop, fltleft, flttop + flightBlk.get_dy(), fltleft + flightBlk.get_dx())
