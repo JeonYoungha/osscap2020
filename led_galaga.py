@@ -438,10 +438,8 @@ while True:  # 무한루프 진행
             elif obstacleSpeed==2:
                 obstacleSpeed=3
             elif obstacleSpeed==3:
-                obstacleSpeed=4
-            elif obstacleSpeed == 4:
                 obstacleSpeed=0
-
+                
             if obstacleleft == 31:
                 i += 1
                 obstacleleft = 6
@@ -461,7 +459,7 @@ while True:  # 무한루프 진행
     oScreen.paste(flttempBlk, flttop, fltleft)
 
     # time.sleep을 통해서 시간 간격 추가, drawmatrix로 출력
-    t = 0.2
+    t = 0.15
     time.sleep(t)
     draw_matrix(oScreen);
     print()
