@@ -29,6 +29,8 @@ def draw_matrix(m):
                 LMD.set_pixel(x,y,4)
             elif array[y][x] == 7:             #obstacle
                 LMD.set_pixel(x,y,1)
+            elif array[y][x] == 8:
+                LMD.set_pixel(x,y,1)        #block 부셨을 때 색바뀌는 이펙트 추가
             else:
                 LMD.set_pixel(x,y,5)
 
@@ -382,6 +384,10 @@ while True:  # 무한루프 진행
     # finish == true 일 때 무한 루프 종료
     if finish == True:
         break
+        
+    # block 부셨을 때 색을 바꾸기 위한 코드 
+    if ArrayScreen[a_y][a_x]>=8:
+        ArrayScreen[a_y][a_x]=0
 
     # lst에 저장된 randomnumber 바탕으로 obstacle 생성하기
     if 1 <= lst[i] <= 14:
@@ -447,7 +453,7 @@ while True:  # 무한루프 진행
                 draw_matrix(oScreen)
 
     if ArrayScreen[a_y][a_x] == 2:
-        ArrayScreen[a_y][a_x] = 0
+        ArrayScreen[a_y][a_x] = 8
 
     # 바뀐 flttop을 바탕으로 oscreen에 붙여넣기
     flttempBlk = iScreen.clip(flttop, fltleft, flttop + flightBlk.get_dy(), fltleft + flightBlk.get_dx())
