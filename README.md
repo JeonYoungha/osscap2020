@@ -27,11 +27,9 @@
 #      $ env/bin/python -m pip install --upgrade pip setuptools wheel
 
 # 서비스 계정키 만들기
+# https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.40899618.-1016148464.1531368544 로 들어가서 새 서비스 계성을 누르고 키 유형은 JSON을 선택한다. 이때 #역활은 프로젝트의 소유자로 설정한다. 완료되면 생성 버튼을 누른다. 그 후 파일을 라즈베리파이의 바탕화면으로 옮긴다.
 
-# https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.40899618.-1016148464.1531368544
-# 
-
-# 3. pyaudio 설치 방법
+# 3. pyaudio 설치 방법  
 #    $ sudo apt-get update
 
  #   $ sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev
@@ -39,5 +37,8 @@
 
 # 방법 1.
  #   $ sudo pip install pyaudio
+ 
+ 
+# $ source env/bin/activate 로 가상환경을 
 
 
