@@ -45,6 +45,8 @@
 
 #  (env) $ pip install -r requirements.txt 을 쳐서 설치를 끝낸다.
 
-# 그후 googlestt.py 에 있는 export
+# 그후 googlestt.py 에 있는 os.system('export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/FILES"') 에서 FILES 부분에 아까 받은 .json 파일의 이름을 쓰고 저장한다.
+
+# 그리고 난뒤 (env) $ led_galaga.py 를 실행하면 된다.
 
 
