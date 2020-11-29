@@ -39,6 +39,12 @@
  #   $ sudo pip install pyaudio
  
  
-# $ source env/bin/activate 로 가상환경을 
+# $ source env/bin/activate 로 가상환경을 킨다
+
+# (env) $ cd osscap2020/samples/microphone 으로 디렉토리를 옮긴다
+
+#  (env) $ pip install -r requirements.txt 을 쳐서 설치를 끝낸다.
+
+# 그후 googlestt.py 에 있는 export
 
 
