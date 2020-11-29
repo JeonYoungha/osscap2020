@@ -4,6 +4,7 @@
 
 # 구글 STT 프로젝트 활성화 방법
 # https://console.actions.google.com/ 으로 들어가서 New Project를 클릭
+
 # 영어로 프로젝트 이름을 입력한뒤 언어와 국가를 한국으로 설정하고 CREATE PROJECT 클릭
 # 프로젝트 종류를 고르는 창에서 맨 밑으로 내려가 device registration 을 클릭
 # https://console.developers.google.com/apis/api/embeddedassistant.googleapis.com/overview 에서 검색창에 speech 를 검색해 STT를 활성화
