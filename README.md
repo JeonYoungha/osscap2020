@@ -1,4 +1,23 @@
-# 1. 구글 stt를 실행시키기 위해서 다음과 같은 명령어를 실행(가상환경 설정)
+# 1. 마이크와 스피커 설정 
+# https://diy-project.tistory.com/88 위 링크에서 마이크만 설정하면 됨
+
+
+# 구글 STT 프로젝트 활성화 방법
+# https://console.actions.google.com/ 으로 들어가서 New Project를 클릭
+# 영어로 프로젝트 이름을 입력한뒤 언어와 국가를 한국으로 설정하고 CREATE PROJECT 클릭
+# 프로젝트 종류를 고르는 창에서 맨 밑으로 내려가 device registration 을 클릭
+# https://console.developers.google.com/apis/api/embeddedassistant.googleapis.com/overview 에서 검색창에 speech 를 검색해 STT를 활성화
+# 그리고 결제수단을 등록해야 한다.
+# 활성화후 왼쪽 메뉴의 사용자 인증 정보 클릭후 OAuth 동의화면으로 넘어가 정보를 적은뒤 저장을 누르기
+# https://myaccount.google.com/activitycontrols 로 들어가 Web & App Activity, Device Information, Voice & Audio Activity 활성화
+# 다시 Google Action Console로 돌아와서 왼쪽 메뉴바의 Device registration을 클릭한다.
+#  그곳에서 Device type는 적당하게 Light로 설정하고 REGISTER MODEL을 클릭해 넘어가면 된다.
+# 다음 화면에서 Download OAuth 2.0 credentials를 클릭해 .json파일을 내려받은 후 컴퓨터 적당한 곳에 저장해두자. 단 반드시 파일의 이름을 변경해서는 안된다.
+# 또 다음화면에서는 모델 ID를 잘 기억해 두자
+
+
+
+# 2. 구글 stt를 실행시키기 위해서 다음과 같은 명령어를 실행(가상환경 설정)
 #      $ sudo apt-get update
 
 #      $ sudo apt-get install python3-dev python3-venv
@@ -7,8 +26,12 @@
 
 #      $ env/bin/python -m pip install --upgrade pip setuptools wheel
 
+# 서비스 계정키 만들기
 
-# 2. pyaudio 설치 방법
+# https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.40899618.-1016148464.1531368544
+# 
+
+# 3. pyaudio 설치 방법
 #    $ sudo apt-get update
 
  #   $ sudo apt-get install libportaudio0 libportaudio2 libportaudiocpp0 portaudio19-dev
