@@ -221,11 +221,10 @@ def listen_print_loop(responses, stream):
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
-            if re.search(r"\b(game|Game)\b", transcript, re.I):
-                #os.system("sudo python3 dodge.py")
+            if re.search(r"\b(easy|Easy)\b", transcript, re.I):
                 sys.stdout.write("Exiting...\n")
                 stream.closed = True
-                return 'game'
+                return 'easy'
             elif re.search(r"\b(exit|quit)\b", transcript, re.I):
                 sys.stdout.write(YELLOW)
                 sys.stdout.write("Exiting...\n")
