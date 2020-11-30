@@ -643,15 +643,15 @@ if printtimescore == True:
     timeofoneBlk = Matrix(timescore(timeofone))
 
     # 숫자 출력 index 좌표값
-    timeoftentop = 3
-    timeofonetop = 3
-    timeoftenleft = 4
-    timeofoneleft = 18
+    timeoftentop = 0
+    timeofonetop = 17
+    timeoftenleft = 0
+    timeofoneleft = 0
 
     # 걸린시간이 한자리 수이면 숫자 하나를 가운데에 출력할 수 있게 index값 조정
     if timeoften == 0:
-        timeofonetop = 3
-        timeofoneleft = 11
+        timeofonetop = 8
+        timeofoneleft = 0
 
     # 출력화면 깜박이게 하기 (반복문 통해서 빈화면과 출력화면 번갈아서 draw_matrix하기)
     for i in range(2):
