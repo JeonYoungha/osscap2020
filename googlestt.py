@@ -39,7 +39,7 @@ STREAMING_LIMIT = 240000  # 4 minutes
 SAMPLE_RATE = 16000
 CHUNK_SIZE = int(SAMPLE_RATE / 10)  # 100ms
 
-os.system('export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/FILES"')
+os.system('export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/test-4db97-d1ddd8da5c99.json"')
 
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
