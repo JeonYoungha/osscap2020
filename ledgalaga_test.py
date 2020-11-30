@@ -75,13 +75,13 @@ while True:
     
     if Word == 'easy':
       level = 1
-      return level
+      break
     elif Word == 'medium':
       level = 2
-      return level
+      break
     elif Word == 'hard':
       level = 3
-      return level
+      break
     else:
       print("Wrong Word")
 # 게임중 스페이스바 입력을 위한 pygame모듈 사용
