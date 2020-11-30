@@ -70,8 +70,8 @@ fltleft = 27
 #level 값을 input 받음
 level = 0
 while True:
-    print("Choose the level (Easy,Medium,Hard) :")
     Word = st.main()
+    print("Choose the level (Easy,Medium,Hard) :")
     
     if Word == 'easy':
       level = 1
