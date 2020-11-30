@@ -5,6 +5,8 @@ import sys
 import random
 import LED_display as LMD
 import threading
+import googlestt as st
+
 
 def LED_init():
     thread=threading.Thread(target=LMD.main, args=())
@@ -69,8 +71,22 @@ fltleft = 27
 # 키 입력을 통해 총 발사하고 걸리는 시간을 스코어 형식으로 표현
 
 #level 값을 input 받음
-level=int(input("(1 : easy, 2: medium, 3 : hard) : "))
-
+level = 0
+while True:
+    Word = st.main()
+    print("Choose the level (Easy,Medium,Hard) :")
+    
+    if Word == 'easy':
+      level = 1
+      break
+    elif Word == 'medium':
+      level = 2
+      break
+    elif Word == 'hard':
+      level = 3
+      break
+    else:
+      print("Wrong Word")
 # 게임중 스페이스바 입력을 위한 pygame모듈 사용
 screen = pg.display.set_mode((1, 1))
 
