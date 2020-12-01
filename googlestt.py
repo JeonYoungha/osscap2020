@@ -222,15 +222,15 @@ def listen_print_loop(responses, stream):
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
             if re.search(r"\b(easy|Easy)\b", transcript, re.I):
-                sys.stdout.write("Exiting...\n")
+                sys.stdout.write("Starting game..\n")
                 stream.closed = True
                 return 'easy'
             elif re.search(r"\b(medium|Medium)\b", transcript, re.I):
-                sys.stdout.write("Exiting...\n")
+                sys.stdout.write("Starting game..\n")
                 stream.closed = True
                 return 'medium'
             elif re.search(r"\b(hard|Hard)\b", transcript, re.I):
-                sys.stdout.write("Exiting...\n")
+                sys.stdout.write("Starting game..\n")
                 stream.closed = True
                 return 'hard'
             elif re.search(r"\b(exit|quit)\b", transcript, re.I):
