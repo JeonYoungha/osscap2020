@@ -54,3 +54,7 @@
 # 그후 googlestt.py 에 있는 export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/FILES" 에서 FILES 부분에 아까 받은 .json 파일의 파일경오를 쓰고 저장한다. 예: export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/Desktop/test..."
 
 # 그리고 난뒤 (env) $ python led_galaga.py 를 실행하면 된다.
+
+# easy, medium, hard 등의 난이도를 마이크를 통해 입력한다
+
+# 왼쪽, 오른쪽 키보드를 통해 비행체를 조종하고 스페이스바를 통해 총을 쏜다.  날라오는 장애물을 피하면서 벽돌을 깬다
