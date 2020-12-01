@@ -225,10 +225,10 @@ def listen_print_loop(responses, stream):
                 sys.stdout.write("Starting game..\n")
                 stream.closed = True
                 return 'easy'
-            elif re.search(r"\b(medium|Medium)\b", transcript, re.I):
+            elif re.search(r"\b(normal|Normal)\b", transcript, re.I):
                 sys.stdout.write("Starting game..\n")
                 stream.closed = True
-                return 'medium'
+                return 'normal'
             elif re.search(r"\b(hard|Hard)\b", transcript, re.I):
                 sys.stdout.write("Starting game..\n")
                 stream.closed = True
