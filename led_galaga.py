@@ -74,19 +74,17 @@ fltleft = 27
 level = 0
 while True:
     Word = st.main()
-    print("Choose the level (Easy,Medium,Hard) :")
+    print("Choose the level (Easy,Normal,Hard) :")
     
     if Word == 'easy':
       level = 1
       break
-    elif Word == 'medium':
+    elif Word == 'normal':
       level = 2
       break
     elif Word == 'hard':
       level = 3
       break
-    else:
-      print("Wrong Word")
 # 게임중 스페이스바 입력을 위한 pygame모듈 사용
 screen = pg.display.set_mode((1, 1))
 
