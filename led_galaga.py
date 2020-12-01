@@ -664,14 +664,12 @@ if printtimescore == True:
         # timeiScreen에서 clip 따와서 붙혀넣기
         # timeoften != 0일때 실행
         if timeoften != 0:
-            timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + 16,
-
-                                                timeoftenleft + 16)
+            timeoftentempBlk = timeiScreen.clip(timeoftentop, timeoftenleft, timeoftentop + 15, timeoftenleft + 15)
             timeoftentempBlk = timeoftentempBlk + timeoftenBlk
             timeoScreen.paste(timeoftentempBlk, timeoftentop, timeoftenleft)
 
-        timeofonetempBlk = timeiScreen.clip(timeofonetop, timeofoneleft, timeofonetop + 16,
-                                            timeofoneleft + 16)
+        timeofonetempBlk = timeiScreen.clip(timeofonetop, timeofoneleft, timeofonetop + 15,
+                                            timeofoneleft + 15)
         timeofonetempBlk = timeofonetempBlk + timeofoneBlk
         timeoScreen.paste(timeofonetempBlk, timeofonetop, timeofoneleft)
 
