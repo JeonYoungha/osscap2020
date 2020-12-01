@@ -1,7 +1,6 @@
 # 1. 마이크와 스피커 설정 
 # https://diy-project.tistory.com/88 위 링크에서 마이크만 설정하면 됨
 
-# pygame 설치, rpi.gpio 설치
 # 구글 STT 프로젝트 활성화 방법
 # https://console.actions.google.com/ 으로 들어가서 New Project를 클릭
 ![1](https://user-images.githubusercontent.com/72368472/100541428-4daba380-3287-11eb-98ac-f596f4b41bf2.jpg)
